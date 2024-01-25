@@ -12,12 +12,38 @@ the function below should be the only one in this file.
 
 #include "split.h"
 
+
 /* Add a prototype for a helper function here if you need */
 
 void split(Node*& in, Node*& odds, Node*& evens)
-{
-  /* Add code here */
-// WRITE YOUR CODE HERE
+{ 
+  // checking if there are elements left in the list
+  if (in == nullptr) {
+    return;
+  }
+  // checking if the element is odd
+  if (in->value % 2 == 1) {
+    // removing unnecessary trailing values
+    if (evens == in) 
+      evens = nullptr;
+      
+    odds = in;
+    Node* temp = in->next;
+    in = nullptr;
+
+    split(temp, odds->next, evens);
+  }
+  // if the element is even
+  else {
+    // removing unnecessary trailing values
+    if (odds == in) 
+      odds = nullptr;
+    
+    evens = in;
+    Node* temp = in->next;
+    in = nullptr;
+    split(temp, odds, evens->next);
+  }
 }
 
 /* If you needed a helper function, write it here */
